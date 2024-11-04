@@ -1,0 +1,34 @@
+services:
+  registry:
+    image: iliad-repository.inesctec.pt/iliad_registry:latest
+    container_name: registry
+    ports:
+      - 5000:80
+    volumes:
+      - ./pygeoapi-config.yml:/pygeoapi/local.config.yml
+    links:
+      - elastic_search
+    depends_on:
+      elastic_search:
+        condition: service_healthy
+
+  elastic_search:
+    image: iliad-repository.inesctec.pt/elastic_search:latest
+    container_name: elastic_search
+    ports:
+      - 9300:9300
+      - 9200:9200
+    volumes:
+      - elastic_search_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test:     
+        [
+          "CMD-SHELL",
+          "curl -s -X GET http://localhost:9200/_cluster/health?pretty | grep status | grep -q '\\(green\\|yellow\\)'"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 24
+
+volumes:
+  elastic_search_data: {}

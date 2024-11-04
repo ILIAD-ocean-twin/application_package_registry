@@ -1,0 +1,128 @@
+# =================================================================
+#
+# Authors: Tom Kralidis <tomkralidis@gmail.com>
+#
+# Copyright (c) 2020 Tom Kralidis
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+#
+# =================================================================
+
+server:
+    bind:
+        host: 0.0.0.0
+        port: 5000
+    url: http://localhost:5000
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    languages:
+        - en-US
+    pretty_print: true
+    limit: 10
+    map:
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    
+logging:
+    level: ERROR
+    #logfile: /tmp/pygeoapi.log
+
+metadata:
+    identification:
+        title:
+            en: Application Package Registry
+        description:
+            en: Experimental Prototype of an ILIAD Registry for Application Packages
+        keywords:
+            en:
+                - application packages
+                - models
+        keywords_type: theme
+        terms_of_service: https://creativecommons.org/licenses/by/4.0/
+        url: https://iliad-registry.inesctec.pt
+    license:
+        name: CC-BY 4.0 license
+        url: https://creativecommons.org/licenses/by/4.0/
+    provider:
+        name: Your Organization
+        url: https://example.org
+    contact:
+        name: Name
+        position: Position
+        address: Address
+        city: City
+        stateorprovince: Administrative Area
+        postalcode: Zip or Postal Code
+        country: Country
+        phone: +xx-xxx-xxx-xxxx
+        fax: +xx-xxx-xxx-xxxx
+        email: you@example.org
+        url: Contact URL
+        hours: Hours of Service
+        instructions: During hours of service. Off on weekends.
+        role: pointOfContact
+
+resources:
+    aps:
+        type: collection
+        title: Application Packages
+        description: Application Packages Registry
+        keywords:
+            - Application packages
+        linked-data:
+            type: schema:SoftwareApplication
+            additionalType: cwl:Process
+            context:
+                - schema: https://schema.org/
+                  keywords: schema:keywords
+                  date_created: schema:dateCreated
+                  citation: schema:citation
+                  license: schema:license
+                  code_repository: schema:codeRepository
+                  maintainer: schema:maintainer
+                  spatial_coverage: schema:spatialCoverage
+                  temporal_coverage: schema:temporalCoverage
+                  contributor: schema:contributor
+                  source_organization: schema:sourceOrganization
+                  author: schema:author
+                  programming_language: schema:programmingLanguage
+                  software_version: schema:softwareVersion
+                  description: schema:description
+                  name: schema:name
+                  file_format: schema:fileFormat
+                  url: schema:url
+                - cwl: https://w3id.org/cwl/cwl
+        extents:
+            spatial:
+                bbox: [-90,-180,90,180]
+                crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+            temporal:
+                begin: 2000-10-30T18:24:39Z
+                end: 2007-10-30T08:57:29Z        
+        providers:
+            - type: record
+              name: Elasticsearch
+              editable: true  # optional, default is false
+              data: http://elastic_search:9200/application_packages
+              id_field: id
+ 
