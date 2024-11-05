@@ -59,7 +59,7 @@ metadata:
                 - models
         keywords_type: theme
         terms_of_service: https://creativecommons.org/licenses/by/4.0/
-        url: https://iliad-registry.inesctec.pt
+        url: https://iliad-registry.example.org
     license:
         name: CC-BY 4.0 license
         url: https://creativecommons.org/licenses/by/4.0/
